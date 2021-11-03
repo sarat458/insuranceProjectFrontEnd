@@ -16,15 +16,15 @@ export class login extends Component {
                         </div>
                     </div>
                 </nav>
-                <section className="login-clean" style={{ color: 'var(--bs-blue)', background: 'linear-gradient(var(--bs-blue) 0%, var(--bs-green) 100%)' }}>
+                <section className="login-clean" style={{ color: 'var(--bs-white)', background: 'linear-gradient(var(--bs-white) 20%, var(--bs-grey) 100%)' }}>
                     <form>
                         <h2 className="visually-hidden">Login Form</h2>
-                        <div className="illustration"><i className="material-icons" style={{ color: 'var(--bs-blue)', fontSize: 40, textAlign: 'left' }}>lock_outline</i></div>
+                        <div className="illustration"><i className="material-icons" style={{ color: 'var(--bs-dark)', fontSize: 100, textAlign: 'left' }}>lock_outline</i></div>
                         <div className="mb-3"><input className="form-control" type="email" name="email" placeholder="Email" required /></div>
                         <div className="mb-3"><input className="form-control" type="password" name="password" placeholder="Password" required /></div>
-                        <div className="mb-3"><button className="btn btn-primary d-block w-100" type="submit" style={{ color: 'var(--bs-gray-100)', background: 'var(--bs-info)' }}>Log In</button></div><a className="forgot" href="#">Forgot your email or password?</a>
+                        <div className="mb-3"><button className="btn btn-primary d-block w-100" type="submit" style={{ color: 'var(--bs-gray-100)', background: 'var(--bs-secondary)' }}>Log In</button></div><a className="forgot" href="#">Forgot your email or password?</a>
                     </form>
-                    <footer className="footer-clean" style={{ transform: 'perspective(0px) translateX(0px) translateY(87px)' }}>
+                    <footer className="footer-clean navbar-light bg-light" style={{ transform: 'perspective(0px) translateX(0px) translateY(87px)' }}>
                         <div className="container">
                             <div className="row justify-content-center">
                                 <div className="col-sm-4 col-md-3 item">
