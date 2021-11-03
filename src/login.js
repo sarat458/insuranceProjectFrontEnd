@@ -1,68 +1,66 @@
-import axios from 'axios';
 import React, { Component } from 'react'
 
-const baseURL = "http://localhost:8000"
-export default class Login extends Component {
-    constructor(props) {
-        super();
-        this.state = {
-            title: '',
-            author_fname: '',
-            author_lname: '',
-            released_year: '',
-            stock_quantity: '',
-            pages: ''
-        }
-    }
-
-    updateHandler = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    submitHandler = e => {
-        e.preventDefault()
-        console.log(this.state);
-        axios
-            .post(`${baseURL}/addBook`, this.state)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    }
-
+export class login extends Component {
     render() {
-        const { title, author_fname, author_lname, released_year, stock_quantity, pages } = this.state
         return (
             <div>
-                <form action="" method="get" class="form-example" onSubmit={this.submitHandler}>
-                    <div class="form-example">
-                        <label for="title">Title </label>
-                        <input type="text" name="title" id="title" value={title} onChange={this.updateHandler} required />
+                <nav className="navbar navbar-light navbar-expand bg-light navigation-clean">
+                    <div className="container"><a className="navbar-brand" href="#">CalState Insurance</a><button data-bs-toggle="collapse" className="navbar-toggler" data-bs-target="#navcol-1" />
+                        <div className="collapse navbar-collapse" id="navcol-1">
+                            <ul className="navbar-nav">
+                                <li className="nav-item"><a className="nav-link active" href="#">Home</a></li>
+                                <li className="nav-item"><a className="nav-link" href="#">Register</a></li>
+                                <li className="nav-item"><a className="nav-link" href="#">User Login</a></li>
+                                <li className="nav-item"><a className="nav-link" href="#">Agent Login</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="form-example">
-                        <label for="author_fname">Author fname</label>
-                        <input type="text" name="author_fname" id="author_fname" value={author_fname} onChange={this.updateHandler} required />
-                    </div>
-                    <div class="form-example">
-                        <label for="author_lname">Author lname</label>
-                        <input type="text" name="author_lname" id="author_lname" value={author_lname} onChange={this.updateHandler} required />
-                    </div>
-                    <div class="form-example">
-                        <label for="released_year">Year</label>
-                        <input type="number" name="released_year" id="released_year" value={released_year} onChange={this.updateHandler} required />
-                    </div>
-                    <div class="form-example">
-                        <label for="stock_quantity">Stock</label>
-                        <input type="number" name="stock_quantity" id="stock_quantity" value={stock_quantity} onChange={this.updateHandler} required />
-                    </div>
-                    <div class="form-example">
-                        <label for="pages">Pages</label>
-                        <input type="number" name="pages" id="pages" value={pages} onChange={this.updateHandler} required />
-                    </div>
-
-                    <div class="form-example">
-                        <input type="submit" value="Update" />
-                    </div>
-                </form>
+                </nav>
+                <section className="login-clean" style={{ color: 'var(--bs-blue)', background: 'linear-gradient(var(--bs-blue) 0%, var(--bs-green) 100%)' }}>
+                    <form>
+                        <h2 className="visually-hidden">Login Form</h2>
+                        <div className="illustration"><i className="material-icons" style={{ color: 'var(--bs-blue)', fontSize: 40, textAlign: 'left' }}>lock_outline</i></div>
+                        <div className="mb-3"><input className="form-control" type="email" name="email" placeholder="Email" required /></div>
+                        <div className="mb-3"><input className="form-control" type="password" name="password" placeholder="Password" required /></div>
+                        <div className="mb-3"><button className="btn btn-primary d-block w-100" type="submit" style={{ color: 'var(--bs-gray-100)', background: 'var(--bs-info)' }}>Log In</button></div><a className="forgot" href="#">Forgot your email or password?</a>
+                    </form>
+                    <footer className="footer-clean" style={{ transform: 'perspective(0px) translateX(0px) translateY(87px)' }}>
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <div className="col-sm-4 col-md-3 item">
+                                    <h3>Services</h3>
+                                    <ul>
+                                        <li><a href="#">Web design</a></li>
+                                        <li><a href="#">Development</a></li>
+                                        <li><a href="#">Hosting</a></li>
+                                    </ul>
+                                </div>
+                                <div className="col-sm-4 col-md-3 item">
+                                    <h3>About</h3>
+                                    <ul>
+                                        <li><a href="#">Company</a></li>
+                                        <li><a href="#">Team</a></li>
+                                        <li><a href="#">Legacy</a></li>
+                                    </ul>
+                                </div>
+                                <div className="col-sm-4 col-md-3 item">
+                                    <h3>Careers</h3>
+                                    <ul>
+                                        <li><a href="#">Job openings</a></li>
+                                        <li><a href="#">Employee success</a></li>
+                                        <li><a href="#">Benefits</a></li>
+                                    </ul>
+                                </div>
+                                <div className="col-lg-3 item social"><a href="#"><i className="icon ion-social-facebook" /></a><a href="#"><i className="icon ion-social-twitter" /></a><a href="#"><i className="icon ion-social-snapchat" /></a><a href="#"><i className="icon ion-social-instagram" /></a>
+                                    <p className="copyright">Company Name © 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </section>
             </div>
         )
     }
 }
+
+export default login
