@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 
-const baseURL = "http://localhost:8000"
+const baseURL = "http://localhost:8000/users"
 export class LoginForm extends Component {
     constructor() {
         super()
