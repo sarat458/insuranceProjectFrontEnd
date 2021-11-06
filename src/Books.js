@@ -2,7 +2,7 @@ import React from 'react';
 
 import axios from 'axios';
 
-const baseURL = "http://localhost:8000"
+const baseURL = "http://localhost:8000/users"
 export default class Books extends React.Component {
   state = {
     books: []

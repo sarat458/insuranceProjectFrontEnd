@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 
-const baseURL = "http://localhost:8000"
+const baseURL = "http://localhost:8000/users"
 export default class Login extends Component {
     constructor(props) {
         super();
