@@ -9,9 +9,7 @@ import '../src/assets/css/Footer-Clean.css';
 import '../src/assets/css/Login-Form-Clean.css';
 import '../src/assets/css/styles.css';
 import '../src/assets/css/styles.min.css';
-
-
-
+import '../src/assets/css/Pretty-Registration-Form.css'
 
 
 
