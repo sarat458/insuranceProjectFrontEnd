@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 
-const baseURL = "http://localhost:8000/users"
+const baseURL = "http://localhost:8000/user"
 export class LoginForm extends Component {
     constructor() {
         super()
@@ -22,11 +22,12 @@ export class LoginForm extends Component {
         console.log(this.state)
         const credentials = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            isAuth: this.state.isAuth
         }
-        axios.post(`${baseURL}/userAuth`, credentials)
+        axios.post(`${baseURL}/login`, credentials)
             .then(res => {
-                if (res.data.email == credentials.email && res.data.password == credentials.password) {
+                if (res.data.email === credentials.email && res.data.isAuth === true) {
                     this.setState({ isAuth: true })
                 }
             })
@@ -36,10 +37,10 @@ export class LoginForm extends Component {
 
 
     render() {
-        const { email, password } = this.state
-        const isAuth = this.state.isAuth
-        console.log(this.state)
-        if (this.state.isAuth) {
+        const { email, password, isAuth } = this.state;
+        const isLogged = isAuth;
+        console.log(this.state);
+        if (isLogged) {
             return (
                 <Redirect to='/user' />
             )
@@ -52,7 +53,7 @@ export class LoginForm extends Component {
                         <div className="illustration"><i className="material-icons" style={{ color: 'var(--bs-dark)', fontSize: 100, textAlign: 'left' }}>lock_outline</i></div>
                         <div className="mb-3"><input className="form-control" type="email" name="email" placeholder="Email" value={email} onChange={this.updateHandler} required /></div>
                         <div className="mb-3"><input className="form-control" type="password" name="password" placeholder="Password" value={password} onChange={this.updateHandler} required /></div>
-                        <div className="mb-3"><button className="btn btn-primary d-block w-100" type="submit" style={{ color: 'var(--bs-gray-100)', background: 'var(--bs-secondary)' }}>Log In</button></div><a className="forgot" href="#">Forgot your email or password?</a>
+                        <div className="mb-3"><button className="btn btn-primary d-block w-100" type="submit" style={{ color: 'var(--bs-gray-100)', background: 'var(--bs-secondary)' }}>Log In</button></div><a className="forgot">Forgot your email or password?</a>
                     </form>
                 </section>
             </div>
