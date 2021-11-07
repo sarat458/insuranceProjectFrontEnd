@@ -6,9 +6,7 @@ export default class User extends Component {
     render() {
         return (
             <div>
-                <Navbar />
                 <UserComponent />
-                <Footer />
             </div>
         )
     }

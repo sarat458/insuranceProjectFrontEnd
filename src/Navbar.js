@@ -7,7 +7,7 @@ export default class Navbar extends Component {
             <div>
                 <nav className='navbar navbar-light navbar-expand bg-light navigation-clean'>
                     <div className='container'>
-                        <a className='navbar-brand' href='#'>
+                        <a className='navbar-brand'>
                             CalState Insurance
                         </a>
                         <button
@@ -19,28 +19,28 @@ export default class Navbar extends Component {
                             <ul className='navbar-nav'>
                                 <li className='nav-item'>
                                     <Link to='/' style={{ textDecoration: 'none' }}>
-                                        <a className='nav-link' href='#'>
+                                        <a className='nav-link'>
                                             Home
                                         </a>
                                     </Link>
                                 </li>
                                 <li className='nav-item'>
                                     <Link to='/register' style={{ textDecoration: 'none' }}>
-                                        <a className='nav-link' href='#'>
+                                        <a className='nav-link'>
                                             Register
                                         </a>
                                     </Link>
                                 </li>
                                 <li className='nav-item'>
                                     <Link to='/login' style={{ textDecoration: 'none' }}>
-                                        <a className='nav-link' href='#'>
+                                        <a className='nav-link'>
                                             User Login
                                         </a>
                                     </Link>
                                 </li>
                                 <li className='nav-item'>
                                     <Link to='/agentLogin' style={{ textDecoration: 'none' }}>
-                                        <a className='nav-link' href='#'>
+                                        <a className='nav-link'>
                                             Agent Login
                                         </a>
                                     </Link>

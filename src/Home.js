@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 
 export default class Home extends Component {
