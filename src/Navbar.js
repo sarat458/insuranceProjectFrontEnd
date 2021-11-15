@@ -5,7 +5,7 @@ export default class Navbar extends Component {
     render() {
         return (
             <div>
-                <nav className='navbar navbar-light navbar-expand bg-light navigation-clean'>
+                <nav className='navbar  navbar-expand navbar-dark bg-dark navigation-clean'>
                     <div className='container'>
                         <a className='navbar-brand'>
                             CalState Insurance

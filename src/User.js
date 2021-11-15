@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import UserComponent from './UserComponent'
+
+import NavbarUser from './NavbarUser'
+import Userdashboard from './sample'
+
 export default class User extends Component {
     render() {
         return (
             <div>
-                <UserComponent />
-            </div>
+                <NavbarUser />
+                <Userdashboard />
+            </div >
         )
     }
 }

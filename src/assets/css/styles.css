@@ -1,3 +1,31 @@
 .navigation-clean {
 }
 
+.buttons {
+  overflow: auto;
+  float: left;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 200%;
+}
+
+.buttons a {
+  display: inline-block;
+  width: 10em;
+
+  margin-bottom: 0.5em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  color: #fff;
+  background-color: #aaabbb;
+  border-radius: 5px;
+  border: solid #cccccc 1px;
+  box-shadow: 2px 2px 1px #888888;
+  clear: right;
+  float: right;
+}
+
+.buttons a:active {
+  box-shadow: 1px 1px 0px #888888;
+}

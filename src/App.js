@@ -12,8 +12,10 @@ import {
 } from "react-router-dom"
 //import { render } from '@testing-library/react';
 import Register from './Register';
-
-
+import BuyPolicy from './BuyPolicy';
+import ViewPolicies from './viewPolicies'
+import Claims from './Claims'
+import Policies from './Policies';
 
 
 function App() {
@@ -25,6 +27,10 @@ function App() {
                 <Route path="/register" component={Register} />
                 <Route path="/agentLogin" component={AgentLogin} />
                 <Route path="/user" component={User} />
+                <Route path="/buyPolicy" component={BuyPolicy} />
+                <Route path="/viewPolicy" component={ViewPolicies} />
+                <Route path="/claims" component={Claims} />
+                <Route path="/policies" component={Policies} />
             </Switch>
         </Router>
     )

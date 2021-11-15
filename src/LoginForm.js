@@ -9,6 +9,7 @@ export class LoginForm extends Component {
         this.state = {
             email: '',
             password: '',
+            userID: '',
             isAuth: false
         }
     }
@@ -28,7 +29,11 @@ export class LoginForm extends Component {
         axios.post(`${baseURL}/login`, credentials)
             .then(res => {
                 if (res.data.email === credentials.email && res.data.isAuth === true) {
-                    this.setState({ isAuth: true })
+                    this.setState({ isAuth: true, userID: res.data.userID })
+                    localStorage.setItem('userID', `${res.data.userID}`)
+                    localStorage.setItem('isLogged', `${res.data.isAuth}`)
+                    console.log(res);
+                    console.log(localStorage.getItem('userID'));
                 }
             })
             .catch(err => console.log(err))
