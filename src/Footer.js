@@ -4,7 +4,7 @@ export default class Footer extends Component {
     render() {
         return (
             <div>
-                <footer className="footer-clean navbar-light bg-light pb-5 mb-5 pt-3 fixed-bottom" style={{ transform: 'perspective(0px) translateX(0px) translateY(87px)', paddingBottom: '100%' }}>
+                <footer className="footer-clean navbar-dark bg-dark pb-5 mb-5 pt-3" style={{ transform: 'perspective(0px) translateX(0px) translateY(87px)', paddingBottom: '100%' }}>
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-sm-4 col-md-3 item">

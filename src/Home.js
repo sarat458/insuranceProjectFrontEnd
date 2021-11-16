@@ -5,11 +5,12 @@ import Navbar from './Navbar'
 
 
 export default class Home extends Component {
+
     render() {
         return (
             <div>
                 <Navbar />
-                <div>
+                <div className="mt-5">
                     <header className="text-center text-white masthead" style={{ background: 'url("../src/assets/img/bg-masthead.jpg")no-repeat center center', backgroundSize: 'cover' }}>
                         <div className="overlay" style={{ opacity: '0.60' }} />
                         <div className="container">
@@ -49,7 +50,6 @@ export default class Home extends Component {
                     </section>
                 </div>
 
-                <Footer />
             </div>
         )
     }

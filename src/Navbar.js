@@ -2,10 +2,18 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 export default class Navbar extends Component {
+    constructor() {
+        super()
+    }
+
+    // componentDidMount() {
+    //     localStorage.clear();
+    // }
+
     render() {
         return (
-            <div>
-                <nav className='navbar  navbar-expand navbar-dark bg-dark navigation-clean'>
+            <div className="mb-5">
+                <nav className='navbar  navbar-expand navbar-dark bg-dark navigation-clean fixed-top'>
                     <div className='container'>
                         <a className='navbar-brand'>
                             CalState Insurance
@@ -42,6 +50,13 @@ export default class Navbar extends Component {
                                     <Link to='/agentLogin' style={{ textDecoration: 'none' }}>
                                         <a className='nav-link'>
                                             Agent Login
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li className='nav-item'>
+                                    <Link to='/companyLogin' style={{ textDecoration: 'none' }}>
+                                        <a className='nav-link'>
+                                            Company Login
                                         </a>
                                     </Link>
                                 </li>

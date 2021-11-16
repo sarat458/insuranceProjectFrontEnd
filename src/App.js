@@ -14,9 +14,17 @@ import {
 import Register from './Register';
 import BuyPolicy from './BuyPolicy';
 import ViewPolicies from './viewPolicies'
-import Claims from './Claims'
+import Claims from './ViewClaims'
 import Policies from './Policies';
-
+import Profile from './Profile';
+import RaiseClaim from './RaiseClaim';
+import PolicyDetails from './PolicyDetails';
+import PaymentSucess from './PaymentSucess';
+import Company from './Company';
+import monthlyPremium from './monthlyPremium';
+import NotFound from './NotFound';
+import claimStatus from './claimStatus';
+import CompanyDashboard from './CompanyDashboard';
 
 function App() {
     return (
@@ -31,6 +39,15 @@ function App() {
                 <Route path="/viewPolicy" component={ViewPolicies} />
                 <Route path="/claims" component={Claims} />
                 <Route path="/policies" component={Policies} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/raiseClaim" component={RaiseClaim} />
+                <Route path="/policyDetails" component={PolicyDetails} />
+                <Route path="/paymentSucess" component={PaymentSucess} />
+                <Route path="/companyLogin" component={Company} />
+                <Route path="/payMonthlyPremium" component={monthlyPremium} />
+                <Route path="/claimStatus" component={claimStatus} />
+                <Route path='/companyDashboard' component={CompanyDashboard} />
+                <Route path="*" component={NotFound} />
             </Switch>
         </Router>
     )

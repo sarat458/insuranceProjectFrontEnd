@@ -42,7 +42,7 @@ export default class viewPolicies extends Component {
                 <tr>
                     <td name="id">{policy.id}</td>
                     <td name="insuranceType">{policy.insuranceType}</td>
-                    <td name="premiumPerMonth">{policy.premiumPerMonth}</td>
+                    <td name="premiumPerMonth">{`$${policy.premiumPerMonth}`}</td>
                     <td name="companyName">{policy.companyName}</td>
                     <td className="buttons">
                         <button className="btn btn-success btn-outline-light d-block w-100" type="submit" id={policy.id} onClick={(e) => this.buyPolicy(e)}>Purchase</button></td>
@@ -72,22 +72,35 @@ export default class viewPolicies extends Component {
         }
         return (
 
-            <div className="mt-5">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Insurance Type</th>
-                            <th scope="col">Premium Per month</th>
-                            <th scope="col">Company Name</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.policyTable()}
-                    </tbody>
-                </table>
-            </div>
+            <React.Fragment>
+
+                <div className="row">
+                    <div className="col">
+                        <div className="mt-5">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Insurance Type</th>
+                                        <th scope="col">Premium Per month</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.policyTable()}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </React.Fragment>
+
 
         )
     }

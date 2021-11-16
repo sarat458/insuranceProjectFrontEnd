@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Footer from './Footer'
 import Navbar from './Navbar'
-import RegisterUser from './RegisterUser'
+import CompanyLogin from './CompanyLogin'
 
-export default class Register extends Component {
+export default class Company extends Component {
     render() {
+
         return (
             <div>
                 <Navbar />
-                <RegisterUser />
+                <CompanyLogin />
             </div>
         )
     }

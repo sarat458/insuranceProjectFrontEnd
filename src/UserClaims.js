@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const baseURL = "http://localhost:8000/user"
 export default class UserClaims extends Component {
@@ -9,6 +10,8 @@ export default class UserClaims extends Component {
         this.state = {
             claimData: [],
             isLogged: localStorage.getItem('isLogged') != null && localStorage.getItem('isLogged'),
+            isClaims: false,
+            isRedirect: false
         }
     }
 
@@ -19,10 +22,11 @@ export default class UserClaims extends Component {
         }
         axios.post(`${baseURL}/viewClaimStatus`, userDetails)
             .then(res => {
-                if (res.data.length > 0) {
-                    console.log(res.data[0][0]);
+                console.log(res.data)
+                if (res.data.isClaims) {
+                    console.log(res.data);
                     this.setState({
-                        claimData: res.data[0]
+                        claimData: res.data.claimDetails
                     })
                     //console.log(this.state)
                 }
@@ -30,21 +34,41 @@ export default class UserClaims extends Component {
             .catch(err => console.log(err))
     }
 
+    claimDetails = (e) => {
+        e.preventDefault()
+        console.log(e.target.outerText);
+        localStorage.setItem('policyNumber', e.target.outerText)
+        this.setState({
+            isRedirect: true
+        })
+    }
+
     claimTable = () => {
         let row = [];
         let id = 1;
-        this.state.claimData.map(claim => {
+        console.log(this.state.claimData[0]);
+        if (this.state.claimData !== undefined && this.state.claimData.length) {
+            this.state.claimData[0].map(claim => {
+                row.push(
+                    <tr>
+                        <td name="id">{id++}</td>
+                        <td name="insuranceType">
+                            <Link className="nav-link" id={claim.policy_number} onClick={(e) => { this.claimDetails(e) }}>{claim.policy_number}
+                            </Link>
+                        </td>
+                        <td name="premiumPerMonth">{claim.company_id}</td>
+                        <td name="companyName">{claim.c_raised_date}</td>
+                        <td name="companyName">{claim.c_type}</td>
+                        <td name="companyName">{claim.c_status}</td>
+                    </tr>
+                )
+            })
+        } else {
             row.push(
-                <tr>
-                    <td name="id">{id++}</td>
-                    <td name="insuranceType">{claim.policy_number}</td>
-                    <td name="premiumPerMonth">{claim.company_id}</td>
-                    <td name="companyName">{claim.c_raised_date.toLocaleString('en-US')}</td>
-                    <td name="companyName">{claim.c_type}</td>
-                    <td name="companyName">{claim.c_status}</td>
-                </tr>
+                <h5 className="mt-2">No Claims raised</h5>
+
             )
-        })
+        }
 
         return row;
     }
@@ -56,6 +80,12 @@ export default class UserClaims extends Component {
                 <Redirect to='/' />
             )
         }
+        if (this.state.isRedirect) {
+            return (
+                <Redirect to='/claimStatus' />
+            )
+        }
+
         console.log(this.state.isLogged);
         return (
 

@@ -8,67 +8,31 @@ export default class NavbarUser extends Component {
     constructor() {
         super();
         this.state = {
+            userFName: '',
             policyData: [],
             isLogged: localStorage.getItem('isLogged')
         }
     }
 
-    // componentDidMount() {
-    //     console.log(this.state.isLogged)
-    //     const userDetails = {
-    //         userID: localStorage.getItem('userID')
-    //     }
-    //     axios.post(`${baseURL}/getUserPolicies`, userDetails)
-    //         .then(res => {
-    //             if (res.data.length > 0) {
-    //                 //console.log(res.data[0]);
-    //                 this.setState({
-    //                     policyData: res.data
-    //                 })
-    //                 //console.log(this.state)
-    //             }
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-
-    // deletePolicy = (e) => {
-    //     e.preventDefault();
-    //     console.log(this.state);
-    //     const userDetails = {
-    //         userID: localStorage.getItem('userID'),
-    //         policyNumber: e.target.id
-    //     }
-    //     axios.post(`${baseURL}/cancelPolicy`, userDetails)
-    //         .then(res => {
-    //             let newPolicyData = this.state.policyData.filter(policy => policy.policyNumber != e.target.id);
-    //             this.setState({ policyData: newPolicyData });
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-
-    // policyTable = () => {
-    //     let row = [];
-    //     this.state.policyData.map(policy => {
-    //         row.push(
-    //             <tr>
-    //                 <td>{policy.policyNumber}</td>
-    //                 <td>{policy.insuranceType}</td>
-    //                 <td>{policy.startDate}</td>
-    //                 <td>{policy.premiumPerMonth}</td>
-    //                 <td>{policy.companyName}</td>
-    //                 <td>{policy.duration}</td>
-    //                 <td className="buttons">
-    //                     <button className="btn btn-danger btn-outline-light d-block w-100" type="submit" id={policy.policyNumber} onClick={(e) => { this.deletePolicy(e) }}>Cancel</button></td>
-    //             </tr>
-    //         )
-    //     })
-
-    //     return row;
-    // }
-
+    componentDidMount() {
+        const userDetails = {
+            userID: localStorage.getItem('userID')
+        }
+        console.log("User ID", userDetails)
+        axios.post(`${baseURL}/getUserDetails`, userDetails)
+            .then(res => {
+                console.log("user Details", res);
+                this.setState({
+                    userFName: res.data[0].firstName
+                })
+            })
+            .catch(err => console.log(err))
+    }
 
     logout = () => {
-        localStorage.setItem('isLogged', 'false');
+        // localStorage.clear();
+        localStorage.setItem('isLogged', false);
+        localStorage.removeItem('userID')
         this.setState({
             isLogged: false
         })
@@ -82,9 +46,10 @@ export default class NavbarUser extends Component {
                 <Redirect to='/' />
             )
         }
+        console.log(this.state.userFName)
         console.log(this.state.isLogged);
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div className="container-fluid">
                     <a className="navbar-brand">CalState Insurance</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,18 +60,33 @@ export default class NavbarUser extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/user" onClick={this.clickHandler}>Home</Link>
                             </li>
+
+
                             <li className="nav-item">
                                 <Link className="nav-link" to="/policies">Policies</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/claims">Claims</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/profile">Profile</Link>
+
+                            <li className="nav-item dropdown">
+                                <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Claims
+                                </Link>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><Link className="dropdown-item" to="/claims">View Claims</Link></li>
+                                    <li><Link className="dropdown-item" to="/raiseClaim">Raise Claim</Link></li>
+
+                                </ul>
                             </li>
 
+
                         </ul>
-                        <button className="btn btn-dark btn-outline-light" type="submit" onClick={this.logout} >Logout</button>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li className="nav-item mx-3">
+                                <Link className="nav-link" to="/profile">Hello, {this.state.userFName}</Link>
+                            </li>
+                            <button className="btn btn-dark btn-outline-light" type="submit" onClick={this.logout} >Logout</button>
+                        </ul>
+
                     </div>
                 </div>
             </nav>

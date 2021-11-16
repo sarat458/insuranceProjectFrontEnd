@@ -8,9 +8,7 @@ export default class login extends Component {
         return (
             <div>
                 <Navbar />
-                <h1 className='pt-3' style={{ textAlign: 'center' }}>User Login</h1>
                 <LoginForm />
-                <Footer />
             </div>
         )
     }
