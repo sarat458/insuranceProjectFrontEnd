@@ -1,11 +1,10 @@
 import axios from 'axios'
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
+const baseURL = "http://localhost:8000/agent"
 
 
-
-const baseURL = "http://localhost:8000/user"
-export class LoginForm extends Component {
+export default class AgentLoginForm extends Component {
     constructor() {
         super()
         this.state = {
@@ -33,9 +32,9 @@ export class LoginForm extends Component {
                 console.log(res);
                 if (res.data.isAuth) {
                     console.log(res);
+                    this.setState({ isAuth: true, userID: res.data.userID });
                     localStorage.userID = res.data.userID;
                     localStorage.isLogged = res.data.isAuth;
-                    this.setState({ isAuth: true, userID: res.data.userID });
                 }
             })
             .catch(err => {
@@ -50,7 +49,7 @@ export class LoginForm extends Component {
         console.log(this.state.isAuth);
         if (this.state.isAuth) {
             return (
-                <Redirect to="/user" />
+                <Redirect to="/home" />
             )
         }
 
@@ -77,5 +76,3 @@ export class LoginForm extends Component {
         )
     }
 }
-
-export default LoginForm

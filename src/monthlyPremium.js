@@ -5,8 +5,8 @@ import NavbarUser from './NavbarUser'
 
 const baseURL = "http://localhost:8000/user"
 export default class monthlyPremium extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             paymentType: '',
             paymentAmount: '',
@@ -18,6 +18,7 @@ export default class monthlyPremium extends Component {
     }
 
     componentDidMount() {
+        //console.log(this.props.policy);
         this.setState({
             policyNumber: localStorage.getItem('policyNumber'),
             paymentAmount: localStorage.getItem('premiumPerMonth'),
@@ -59,6 +60,7 @@ export default class monthlyPremium extends Component {
     }
 
     render() {
+        //console.log("render", this.props.policy);
         if (this.state.isRedirect || this.state.isGoBack) {
             return (
                 <Redirect to='/user' />

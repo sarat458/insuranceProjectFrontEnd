@@ -9,7 +9,7 @@ export default class CompanyLogin extends Component {
         this.state = {
             companyID: '',
             password: '',
-            isAuth: localStorage.getItem('isCompanyAuth')
+            isAuth: false
         }
     }
 
@@ -31,6 +31,9 @@ export default class CompanyLogin extends Component {
                     console.log(res.data);
                     localStorage.setItem('companyID', res.data.companyID);
                     localStorage.setItem('isCompanyAuth', res.data.isAuth);
+                    this.setState({
+                        isAuth: true
+                    })
                 }
             })
             .catch(err => console.log(err))

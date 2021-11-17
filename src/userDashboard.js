@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import monthlyPremium from './monthlyPremium';
 
 const baseURL = "http://localhost:8000/user"
 export default class Userdashboard extends Component {
@@ -9,11 +10,13 @@ export default class Userdashboard extends Component {
         super();
         this.state = {
             policyData: [],
+            overDuePolicyData: [],
             isLogged: localStorage.getItem('isLogged'),
             totalPremium: '',
-            nextDueDate: '',
+            nextDueDate: 'no dues',
             policyNumber: '',
-            isRedirectToPayment: false
+            isRedirectToPayment: false,
+            isShowDueDatePolicyDetails: false
         }
     }
 
@@ -23,40 +26,41 @@ export default class Userdashboard extends Component {
         const userDetails = {
             userID: localStorage.getItem('userID')
         }
-
+        console.log(userDetails);
         axios.post(`${baseURL}/getUserPolicies`, userDetails)
             .then(res => {
-                console.log("Results", res)
+                console.log(res.data)
                 if (res.data) {
                     this.setState({
                         policyData: res.data
                     })
                     //console.log(this.state)
+                    this.premiumUpdate();
+                    this.dueDateUpdate();
+                    this.listOfOverDuePolicies();
                 }
             })
             .catch(err => console.log(err))
 
 
 
-
-        this.premiumUpdate();
-        this.dueDateUpdate();
-
-
-
     }
 
     dueDateUpdate = () => {
+        console.log("I'm here")
         const userDetails = {
             userID: localStorage.getItem('userID')
         }
         axios.post(`${baseURL}/nextDueDate`, userDetails)
             .then(res => {
-                console.log(res.data[0]);
-                this.setState({
-                    nextDueDate: res.data[0],
-                    policyNumber: res.data[1]
-                })
+                console.log(Object.values(res.data));
+                const dueDateDetails = Object.values(res.data)
+                if (Object.values(res.data).length > 0) {
+                    this.setState({
+                        nextDueDate: dueDateDetails[0].slice(0, 10),
+                        policyNumber: dueDateDetails[1]
+                    })
+                }
             })
     }
 
@@ -76,8 +80,23 @@ export default class Userdashboard extends Component {
 
     premiumPayment = (e) => {
         e.preventDefault();
+        console.log(e);
+        localStorage.setItem('policyNumber', e.target.id)
+        let policy = this.state.policyData.filter(policy => policy.policyNumber == e.target.id)[0];
+        localStorage.setItem('premiumPerMonth', policy.premiumPerMonth);
+        //localStorage.setItem('policyData', this.state.policyData);
+        //<monthlyPremium policy={this.state.policyData} />
+        //<monthlyPremium policyNumber={e.target.value} premiumPayment={e.tar}
         this.setState({
             isRedirectToPayment: true,
+        })
+
+    }
+
+    showPolicyDetails = (e) => {
+        e.preventDefault();
+        this.setState({
+            isShowDueDatePolicyDetails: true
         })
 
     }
@@ -115,7 +134,7 @@ export default class Userdashboard extends Component {
                     <tr key={policy.policyNumber}>
                         <td><Link className="nav-link" to="/policyDetails" id={policy.policyNumber} onClick={(e) => { this.policyDetails(e) }}>{policy.policyNumber}</Link></td>
                         <td>{policy.insuranceType}</td>
-                        <td>{policy.startDate}</td>
+                        <td>{policy.startDate.slice(0, 10)}</td>
                         <td>{`$${policy.premiumPerMonth}`}</td>
                         <td>{policy.companyName}</td>
                         <td>{policy.duration}</td>
@@ -144,9 +163,6 @@ export default class Userdashboard extends Component {
                             </div>
                         </td>
                     </tr>
-
-
-
                 )
             })
             return row;
@@ -157,6 +173,43 @@ export default class Userdashboard extends Component {
         }
 
     }
+
+    listOfOverDuePolicies = () => {
+        const userDetails = {
+            userID: localStorage.getItem('userID')
+        }
+
+        axios.post(`${baseURL}/overDuePolicy`, userDetails)
+            .then((res) => {
+                console.log(res.data);
+                this.setState({
+                    overDuePolicyData: res.data
+                })
+            })
+            .catch((err) => console.log(err))
+    }
+
+    overDuePolicyTable = () => {
+        let row = [];
+        console.log(this.state.overDuePolicyData)
+        if (this.state.overDuePolicyData !== "No overdue policies") {
+            this.state.overDuePolicyData.map(policy => {
+                console.log(policy)
+                row.push(
+                    <ul>
+                        <li className="font-weight-bold text-danger">{policy.policy_number}</li>
+                    </ul>
+                )
+            })
+        } else {
+            row.push(
+                <h6>No Overdue policies</h6>
+            )
+        }
+
+        return row;
+    }
+
 
     logout = () => {
         localStorage.setItem('isLogged', 'false');
@@ -174,12 +227,14 @@ export default class Userdashboard extends Component {
                 <Redirect to='/' />
             )
         }
+
         console.log(this.isRedirectToPayment);
         if (this.state.isRedirectToPayment) {
             return (
                 <Redirect to='/payMonthlyPremium' />
             )
         }
+
         console.log(this.state.isLogged);
         return (
             <React.Fragment>
@@ -222,7 +277,7 @@ export default class Userdashboard extends Component {
                         <div className="card p-4" style={{ width: '18rem', height: '184.4px' }}>
                             <div className="card-body">
                                 <h3 className="card-title mx-auto">Next Due</h3>
-                                <h6 className="card-subtitle mb-2 text-muted">{this.state.policyNumber}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted"><Link style={{ textDecoration: "none" }} to='/policyDetails' id={this.state.policyNumber} onClick={(e) => { this.premiumPayment(e) }}>{`${this.state.policyNumber}`}</Link></h6>
                                 <h3 className="mx-auto text-danger">{this.state.nextDueDate}</h3>
 
                             </div>
@@ -233,11 +288,7 @@ export default class Userdashboard extends Component {
                         <div className="card p-4" style={{ width: '20rem', minHeight: '184.4px' }}>
                             <div className="card-body">
                                 <h3 className="card-title">Overdue policies</h3>
-                                <ul>
-                                    <li>65468464</li>
-                                    <li>35468684</li>
-                                </ul>
-
+                                {this.overDuePolicyTable()}
                             </div>
                         </div>
                     </div>

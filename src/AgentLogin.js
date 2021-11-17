@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Footer from './Footer'
-import LoginForm from './LoginForm'
+import AgentLoginForm from './AgentLoginForm';
+
 import Navbar from './Navbar'
 
 export default class AgentLogin extends Component {
@@ -9,7 +9,7 @@ export default class AgentLogin extends Component {
         return (
             <div>
                 <Navbar />
-                <LoginForm name={name} />
+                <AgentLoginForm />
             </div>
         )
     }
