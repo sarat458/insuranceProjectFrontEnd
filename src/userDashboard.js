@@ -50,6 +50,8 @@ export default class Userdashboard extends Component {
         const userDetails = {
             userID: localStorage.getItem('userID')
         }
+
+        console.log(userDetails);
         axios.post(`${baseURL}/nextDueDate`, userDetails)
             .then(res => {
                 console.log(Object.values(res.data));
@@ -107,6 +109,7 @@ export default class Userdashboard extends Component {
             userID: localStorage.getItem('userID'),
             policyNumber: e.target.id
         }
+
         axios.post(`${baseURL}/cancelPolicy`, userDetails)
             .then(res => {
                 let newPolicyData = this.state.policyData.filter(policy => policy.policyNumber != e.target.id);
