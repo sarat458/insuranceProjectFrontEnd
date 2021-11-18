@@ -10,7 +10,7 @@ export default class AgentLoginForm extends Component {
         this.state = {
             email: '',
             password: '',
-            userID: '',
+            agentID: '',
             isAuth: false
         }
     }
@@ -31,10 +31,10 @@ export default class AgentLoginForm extends Component {
             .then(res => {
                 console.log(res);
                 if (res.data.isAuth) {
-                    console.log(res);
-                    this.setState({ isAuth: true, userID: res.data.userID });
-                    localStorage.userID = res.data.userID;
-                    localStorage.isLogged = res.data.isAuth;
+                    console.log(res.data.agentID);
+                    localStorage.agentID = res.data.agentID;
+                    localStorage.isAgentLogged = res.data.isAuth;
+                    this.setState({ isAuth: true, agentID: res.data.agentID });
                 }
             })
             .catch(err => {
@@ -49,7 +49,7 @@ export default class AgentLoginForm extends Component {
         console.log(this.state.isAuth);
         if (this.state.isAuth) {
             return (
-                <Redirect to="/home" />
+                <Redirect to="/agentHome" />
             )
         }
 
@@ -57,7 +57,7 @@ export default class AgentLoginForm extends Component {
             <div className="mt-5">
                 <section className="login-clean pt-2" style={{ color: 'var(--bs-white)', background: 'linear-gradient(var(--bs-white) 20%, var(--bs-grey) 100%)' }}>
                     <form onSubmit={this.loginHandler}>
-                        <h2 className="">{this.props.name}</h2>
+                        <h2 className="text-center text-dark">Agent Login</h2>
                         <div className="illustration">
                         </div>
                         <div className="mb-3">

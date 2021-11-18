@@ -25,6 +25,7 @@ import monthlyPremium from './monthlyPremium';
 import NotFound from './NotFound';
 import claimStatus from './claimStatus';
 import CompanyDashboard from './CompanyDashboard';
+import AgentHome from './AgentHome';
 
 function App() {
     return (
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/payMonthlyPremium" component={monthlyPremium} />
                 <Route path="/claimStatus" component={claimStatus} />
                 <Route path='/companyDashboard' component={CompanyDashboard} />
+                <Route path='/agentHome' component={AgentHome} />
                 <Route path="*" component={NotFound} />
             </Switch>
         </Router>

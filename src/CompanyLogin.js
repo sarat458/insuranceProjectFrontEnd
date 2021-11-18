@@ -50,7 +50,7 @@ export default class CompanyLogin extends Component {
             <div className="mt-5">
                 <section className="login-clean pt-2" style={{ color: 'var(--bs-white)', background: 'linear-gradient(var(--bs-white) 20%, var(--bs-grey) 100%)' }}>
                     <form action="" method="post" onSubmit={this.loginHandler}>
-                        <h2 className="">Company Login</h2>
+                        <h2 className="text-center text-dark">Company Login</h2>
                         <div className="illustration"></div>
                         <div className="mb-3"><input className="form-control" type="text" name="companyID" placeholder="Company ID" value={this.state.companyID} onChange={this.updateHandler} required /></div>
                         <div className="mb-3"><input className="form-control" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.updateHandler} required /></div>

@@ -18,7 +18,7 @@ export default class UserRaiseClaim extends Component {
         const userdetails = {
             userID: localStorage.getItem('userID')
         }
-        axios.post(`${baseURL}/getUserPolicies`, userdetails)
+        axios.post(`${baseURL}/dropDownClaims`, userdetails)
             .then(res => {
                 console.log(res.data);
                 let id = 1;

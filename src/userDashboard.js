@@ -47,7 +47,6 @@ export default class Userdashboard extends Component {
     }
 
     dueDateUpdate = () => {
-        console.log("I'm here")
         const userDetails = {
             userID: localStorage.getItem('userID')
         }
@@ -196,9 +195,9 @@ export default class Userdashboard extends Component {
             this.state.overDuePolicyData.map(policy => {
                 console.log(policy)
                 row.push(
-                    <ul>
-                        <li className="font-weight-bold text-danger">{policy.policy_number}</li>
-                    </ul>
+
+                    <li className="font-weight-bold text-danger text-center">{policy.policy_number}</li>
+
                 )
             })
         } else {
@@ -266,9 +265,9 @@ export default class Userdashboard extends Component {
                     <div className="col">
                         <div className="card p-4" style={{ width: '18rem', height: '184.4px' }}>
                             <div className="card-body">
-                                <h3 className="card-title">Total Premium</h3>
-                                <h6 className="card-subtitle mb-2 text-muted mx-5">(per month)</h6>
-                                <h1 className="text-success mx-4">{`$${this.state.totalPremium}`}</h1>
+                                <h3 className="card-title text-center">Total Premium</h3>
+                                <h6 className="card-subtitle mb-2 text-muted text-center">(per month)</h6>
+                                <h1 className="text-success text-center">{`$${this.state.totalPremium}`}</h1>
                             </div>
                         </div>
                     </div>
@@ -276,9 +275,9 @@ export default class Userdashboard extends Component {
                     <div className="col">
                         <div className="card p-4" style={{ width: '18rem', height: '184.4px' }}>
                             <div className="card-body">
-                                <h3 className="card-title mx-auto">Next Due</h3>
-                                <h6 className="card-subtitle mb-2 text-muted"><Link style={{ textDecoration: "none" }} to='/policyDetails' id={this.state.policyNumber} onClick={(e) => { this.premiumPayment(e) }}>{`${this.state.policyNumber}`}</Link></h6>
-                                <h3 className="mx-auto text-danger">{this.state.nextDueDate}</h3>
+                                <h3 className="card-title text-center">Next Due</h3>
+                                <h6 className="card-subtitle mb-2 text-muted text-center"><Link style={{ textDecoration: "none" }} to='/policyDetails' id={this.state.policyNumber} onClick={(e) => { this.premiumPayment(e) }}>{`${this.state.policyNumber}`}</Link></h6>
+                                <h3 className="mx-auto text-danger text-center">{this.state.nextDueDate}</h3>
 
                             </div>
                         </div>

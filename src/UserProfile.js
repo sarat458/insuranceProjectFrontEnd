@@ -98,7 +98,7 @@ export default class UserProfile extends Component {
                                     <div className="form-group row pt-2">
                                         <label className="col-lg-3 col-form-label form-control-label">Date Of Birth</label>
                                         <div className="col-lg-9">
-                                            <input className="form-control" type="text" name="dob" disabled value={this.state.dob} />
+                                            <input className="form-control" type="text" name="dob" disabled value={this.state.dob.slice(0, 10)} />
                                         </div>
                                     </div>
 

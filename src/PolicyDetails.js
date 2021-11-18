@@ -15,8 +15,17 @@ export default class PolicyDetails extends Component {
             duration: '',
             nomineeFname: '',
             mobileNumber: '',
+            nomineeFname2: '',
+            mobileNumber2: '',
+            nomineeFnameCopy: '',
+            mobileNumberCopy: '',
+            nomineeFname2Copy: '',
+            mobileNumber2Copy: '',
+            numberOfNominees: '',
             isGoBack: false,
-            isAdd: false
+            isAdd: false,
+            isEdit: false,
+            isRedirect: false
         }
     }
 
@@ -45,10 +54,29 @@ export default class PolicyDetails extends Component {
                     }
                     axios.post(`${baseURL}/getNomineeDetails`, getNomineeDetails)
                         .then(nomineeResults => {
-                            if (res.data.length > 0) {
+
+                            if (nomineeResults.data.length == 2) {
                                 this.setState({
                                     nomineeFname: nomineeResults.data[0].nomineeFname,
-                                    mobileNumber: nomineeResults.data[0].mobileNumber
+                                    mobileNumber: nomineeResults.data[0].mobileNumber,
+                                    nomineeFname2: nomineeResults.data[1].nomineeFname,
+                                    mobileNumber2: nomineeResults.data[1].mobileNumber,
+                                    nomineeFnameCopy: nomineeResults.data[0].nomineeFname,
+                                    mobileNumberCopy: nomineeResults.data[0].mobileNumber,
+                                    nomineeFname2Copy: nomineeResults.data[1].nomineeFname,
+                                    mobileNumber2Copy: nomineeResults.data[1].mobileNumber,
+                                    numberOfNominees: nomineeResults.data.length,
+                                    isAdd: false
+                                })
+                            }
+
+                            if (nomineeResults.data.length == 1) {
+                                this.setState({
+                                    nomineeFname: nomineeResults.data[0].nomineeFname,
+                                    mobileNumber: nomineeResults.data[0].mobileNumber,
+                                    nomineeFnameCopy: nomineeResults.data[0].nomineeFname,
+                                    mobileNumberCopy: nomineeResults.data[0].mobileNumber,
+                                    numberOfNominees: nomineeResults.data.length
                                 })
                             }
                         })
@@ -76,12 +104,112 @@ export default class PolicyDetails extends Component {
         })
     }
 
+    handleChange = (e) => {
+        //dynamic
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    editDetails = (e) => {
+        this.setState({
+            isEdit: true,
+
+        })
+    }
+
+    saveDetails = (e) => {
+        console.log(this.state);
+        if (this.state.isAdd) {
+            const addNomineeDetails = {
+                userID: localStorage.getItem('userID'),
+                policyNumber: this.state.policyNumber,
+                nomineeFname2: this.state.nomineeFname2,
+                mobileNumber2: this.state.mobileNumber2
+            }
+
+            console.log(addNomineeDetails);
+
+            axios.post(`${baseURL}/addNominee`, addNomineeDetails)
+                .then(res => {
+                    this.setState({
+                        isRedirect: true
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+
+        if (this.state.isEdit && this.state.numberOfNominees == 1) {
+            const addNomineeDetails = {
+                userID: localStorage.getItem('userID'),
+                policyNumber: this.state.policyNumber,
+                nomineeFname: this.state.nomineeFname,
+                mobileNumber: this.state.mobileNumber,
+                oldNomineeFname: this.state.nomineeFnameCopy
+            }
+
+            // console.log(addNomineeDetails);
+
+            axios.post(`${baseURL}/updateNominee`, addNomineeDetails)
+                .then(res => {
+                    this.setState({
+                        isRedirect: true
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+
+        if (this.state.isEdit && this.state.numberOfNominees == 2) {
+            const addNomineeDetails = {
+                userID: localStorage.getItem('userID'),
+                policyNumber: this.state.policyNumber,
+                nomineeFname: this.state.nomineeFname,
+                mobileNumber: this.state.mobileNumber,
+                nomineeFname2: this.state.nomineeFname2,
+                mobileNumber2: this.state.mobileNumber2,
+                oldNomineeFname: this.state.nomineeFnameCopy,
+                oldNomineeFname2: this.state.nomineeFname2Copy
+            }
+
+            console.log(addNomineeDetails);
+
+            axios.post(`${baseURL}/updateNomineeMultiple`, addNomineeDetails)
+                .then(res => {
+                    this.setState({
+                        isRedirect: true
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+
+
+    }
+    deleteNominee = (e) => {
+        let { id } = e.target;
+        if (id == "nominee2") {
+            axios.post(`${baseURL}/deleteNominee`, { userID: localStorage.getItem('userID'), policyNumber: this.state.policyNumber, nomineeFname: this.state.nomineeFname2 })
+                .then(res => {
+                    console.log(res.data);
+
+                })
+                .catch(err => console.log(err))
+            this.setState({ isAdd: false, nomineeFname2: "", mobileNumber2: "", numberOfNominees: 1 });
+        } else {
+            axios.post(`${baseURL}/deleteNominee`, { userID: localStorage.getItem('userID'), policyNumber: this.state.policyNumber, nomineeFname: this.state.nomineeFname })
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => console.log(err))
+            this.setState({ nomineeFname: this.state.nomineeFname2, mobileNumber: this.state.mobileNumber2, mobileNumber2: "", nomineeFname2: "", isAdd: false, numberOfNominees: 1 });
+        }
+    }
     render() {
-        if (this.state.isGoBack) {
+        if (this.state.isGoBack || this.state.isRedirect) {
             return (
                 <Redirect to="/user" />
             )
         }
+
+
+        const disabled = this.state.isAdd ? "disabled" : "";
         return (
             <div>
                 <NavbarUser />
@@ -93,7 +221,7 @@ export default class PolicyDetails extends Component {
                             {/*form user info*/}
                             <div className="card card-outline-secondary">
                                 <div className="card-header">
-                                    <h3 className="mb-0">Policy Details</h3>
+                                    <h3 className="mb-0">Policy</h3>
                                 </div>
                                 <div className="card-body">
                                     <form autoComplete="off" className="form" role="form">
@@ -112,7 +240,7 @@ export default class PolicyDetails extends Component {
                                         <div className="form-group row pt-2">
                                             <label className="col-lg-3 col-form-label form-control-label">Start Date</label>
                                             <div className="col-lg-9">
-                                                <input className="form-control" type="text" name="startDate" disabled value={this.state.startDate} />
+                                                <input className="form-control" type="text" name="startDate" disabled value={this.state.startDate.slice(0, 10)} />
                                             </div>
                                         </div>
                                         <div className="form-group row pt-2">
@@ -131,44 +259,85 @@ export default class PolicyDetails extends Component {
 
 
                                         <div className="form-group row pt-2">
-                                            <label className="col-lg-3 col-form-label form-control-label">Nominee Full Name</label>
+                                            <label className="col-lg-3 col-form-label form-control-label">1.Nominee Full Name</label>
                                             <div className="col-lg-9">
-                                                <input className="form-control" type="text" name="nomineeFname" disabled value={this.state.nomineeFname} />
+                                                <input className="form-control" type="text" name="nomineeFname" disabled={!this.state.isEdit} value={this.state.nomineeFname} onChange={this.handleChange} />
                                             </div>
                                         </div>
 
                                         <div className="form-group row pt-2">
-                                            <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
+                                            <label className="col-lg-3 col-form-label form-control-label">1.Mobile Number</label>
                                             <div className="col-lg-9">
-                                                <input className="form-control" type="text" name="mobileNumber" disabled value={this.state.mobileNumber} />
+                                                <input className="form-control" type="text" name="mobileNumber" disabled={!this.state.isEdit} value={this.state.mobileNumber} />
                                             </div>
                                         </div>
+
+                                        <div>
+                                            <button type="button" id="nominee1" hidden={this.state.numberOfNominees == 1} className="btn btn-danger" onClick={(e) => { this.deleteNominee(e) }}>Delete Nominee 1</button>
+                                        </div>
+                                        {this.state.numberOfNominees == 2 ? <React.Fragment>
+                                            <div className="form-group row pt-2">
+                                                <label className="col-lg-3 col-form-label form-control-label">2.Nominee Full Name</label>
+                                                <div className="col-lg-9">
+                                                    <input className="form-control" type="text" name="nomineeFname2" disabled={!this.state.isEdit} value={this.state.nomineeFname2} />
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group row pt-2">
+                                                <label className="col-lg-3 col-form-label form-control-label">2.Mobile Number</label>
+                                                <div className="col-lg-9">
+                                                    <input className="form-control" type="text" name="mobileNumber2" disabled={!this.state.isEdit} value={this.state.mobileNumber2} />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button type="button" id="nominee2" className="btn btn-danger" onClick={(e) => { this.deleteNominee(e) }}>Delete Nominee 2</button>
+                                            </div>
+                                        </React.Fragment> : null}
+
+
+
+
+
 
                                         {/*TO Club multiple html tags, becasue react returns only one tag */}
                                         {this.state.isAdd ? <React.Fragment><div className="form-group row pt-2">
                                             <label className="col-lg-3 col-form-label form-control-label">Nominee Full Name</label>
                                             <div className="col-lg-9">
-                                                <input className="form-control" type="text" name="nomineeFname" value="" onChange={this.handleChange} required />
+                                                <input className="form-control" type="text" name="nomineeFname2" value={this.state.nomineeFname2} onChange={this.handleChange} required />
                                             </div>
                                         </div>
 
                                             <div className="form-group row pt-2">
                                                 <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" name="mobileNumber" value="" onChange={this.handleChange} required />
+                                                    <input className="form-control" type="text" name="mobileNumber2" value={this.state.mobileNumber2} onChange={this.handleChange} required />
                                                 </div>
-                                            </div></React.Fragment> : null}
-
-
-                                        <div className="form-group row pt-2">
-                                            <label className="col-lg-3 col-form-label form-control-label" />
-                                            <div className="col-lg-9">
-                                                <input className="btn btn-dark mx-5" type="reset" onClick={this.goBack} value="Back" />
-                                                <input className="btn btn-success mx-5" type="button" onClick={this.saveDetails} defaultValue="Save" />
-                                                {!this.state.isAdd ? <input className="btn btn-success mx-5" type="button" onClick={this.addDetails}
-                                                    defaultValue="Add" /> : <input className="btn btn-success mx-5" type="button" onClick={this.deleteDetails}
-                                                        defaultValue="Delete" />}
                                             </div>
+                                            <div>
+                                                <button type="button" id="nominee2" className="btn btn-danger" onClick={(e) => { this.deleteNominee(e) }}>Delete Nominee 2</button>
+                                            </div>
+                                        </React.Fragment> : null}
+
+
+                                        <div className="form-group row pt-2" >
+                                            <label className="col-lg-3 col-form-label form-control-label" />
+                                            <div className="row">
+                                                <div className="col">
+                                                    <button className="btn btn-dark" type="reset" onClick={this.goBack} value="Back">Back</button>
+                                                </div>
+                                                <div className="col">
+                                                    <button className="btn btn-success" type="button" disabled={!this.state.isAdd ^ this.state.isEdit} onClick={this.saveDetails} defaultValue="Save">Save</button>
+                                                </div>
+                                                <div className="col">
+                                                    {!this.state.isAdd ? <button className="btn btn-success" type="button" disabled={this.state.numberOfNominees === 2 && !this.state.isAdd} onClick={this.addDetails}
+                                                        defaultValue="Add" >Add</button> : <button className="btn btn-success" type="button" onClick={this.deleteDetails}
+                                                            defaultValue="Delete">Delete</button>}
+                                                </div>
+                                                <div className="col">
+                                                    <button className="btn btn-primary" type="button" disabled={this.state.isEdit} onClick={this.editDetails} defaultValue="Edit">Edit</button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </form>
                                 </div>

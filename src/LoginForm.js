@@ -58,7 +58,7 @@ export class LoginForm extends Component {
             <div className="mt-5">
                 <section className="login-clean pt-2" style={{ color: 'var(--bs-white)', background: 'linear-gradient(var(--bs-white) 20%, var(--bs-grey) 100%)' }}>
                     <form onSubmit={this.loginHandler}>
-                        <h2 className="">{this.props.name}</h2>
+                        <h2 className="text-center text-dark">User Login</h2>
                         <div className="illustration">
                         </div>
                         <div className="mb-3">

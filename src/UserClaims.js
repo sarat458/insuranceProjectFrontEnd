@@ -57,9 +57,8 @@ export default class UserClaims extends Component {
                             </Link>
                         </td>
                         <td name="premiumPerMonth">{claim.company_id}</td>
-                        <td name="companyName">{claim.c_raised_date}</td>
+                        <td name="companyName">{claim.c_raised_date.slice(0, 10)}</td>
                         <td name="companyName">{claim.c_type}</td>
-                        <td name="companyName">{claim.c_status}</td>
                     </tr>
                 )
             })
@@ -99,8 +98,6 @@ export default class UserClaims extends Component {
                             <th scope="col">Company ID</th>
                             <th scope="col">Raised Date</th>
                             <th scope="col">Calim Type</th>
-                            <th scope="col">Claim Status</th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>

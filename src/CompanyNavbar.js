@@ -20,9 +20,11 @@ export default class CompanyNavbar extends Component {
         axios.post(`${baseURL}/companyDetails`, companyDetails)
             .then(res => {
                 console.log(res.data[0]);
-                this.setState({
-                    companyName: res.data[0].companyName
-                })
+                if (res.data[0] !== undefined) {
+                    this.setState({
+                        companyName: res.data[0].companyName
+                    })
+                }
             })
     }
 
