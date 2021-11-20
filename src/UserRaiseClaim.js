@@ -18,6 +18,7 @@ export default class UserRaiseClaim extends Component {
         const userdetails = {
             userID: localStorage.getItem('userID')
         }
+        console.log(userdetails.userID);
         axios.post(`${baseURL}/dropDownClaims`, userdetails)
             .then(res => {
                 console.log(res.data);
@@ -39,9 +40,9 @@ export default class UserRaiseClaim extends Component {
     policyNumber = () => {
         let list = [];
         this.state.policyNumbers.map(num => {
-            console.log(num.policyNumber);
+            console.log(num.policy_number);
             list.push(
-                <option id={num.id}>{num.policyNumber}</option>
+                <option id={num.id}>{num.policy_number}</option>
             )
         })
 
@@ -96,6 +97,7 @@ export default class UserRaiseClaim extends Component {
                         <select className="form-control" id="exampleFormControlSelect1" name="policyNumber" onChange={this.handleChange}>
                             <option>--------Select a Policy Number--------</option>
                             {this.policyNumber()}
+
                         </select>
                     </div>
                     <div className="input-group mt-3" style={{ width: '75%' }}>
