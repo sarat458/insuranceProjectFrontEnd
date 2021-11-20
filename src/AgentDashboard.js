@@ -140,16 +140,22 @@ export default class AgentDashboard extends Component {
     overdueCustomersDetailsTable = () => {
         let row = [];
         let id = 1;
-        this.state.overdueCustomers.map(cust => {
+        if (this.state.overdueCustomers != undefined && this.state.overdueCustomers.length > 0) {
+            this.state.overdueCustomers.map(cust => {
+                row.push(
+                    <tr key={id++}>
+                        <td>{id}</td>
+                        <td>{cust.policy_number}</td>
+                        <td>{cust.fullName}</td>
+                        <td>{cust.email}</td>
+                    </tr>
+                )
+            })
+        } else {
             row.push(
-                <tr key={id++}>
-                    <td>{id}</td>
-                    <td>{cust.policy_number}</td>
-                    <td>{cust.fullName}</td>
-                    <td>{cust.email}</td>
-                </tr>
+                <td>No Overdue customers</td>
             )
-        })
+        }
 
         return row;
     }

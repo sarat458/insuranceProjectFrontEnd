@@ -259,14 +259,14 @@ export default class PolicyDetails extends Component {
 
 
                                         <div className="form-group row pt-2">
-                                            <label className="col-lg-3 col-form-label form-control-label">1.Nominee Full Name</label>
+                                            <label className="col-lg-3 col-form-label form-control-label">Nominee Full Name</label>
                                             <div className="col-lg-9">
                                                 <input className="form-control" type="text" name="nomineeFname" disabled={!this.state.isEdit} value={this.state.nomineeFname} onChange={this.handleChange} />
                                             </div>
                                         </div>
 
                                         <div className="form-group row pt-2">
-                                            <label className="col-lg-3 col-form-label form-control-label">1.Mobile Number</label>
+                                            <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
                                             <div className="col-lg-9">
                                                 <input className="form-control" type="text" name="mobileNumber" disabled={!this.state.isEdit} value={this.state.mobileNumber} />
                                             </div>
@@ -277,14 +277,14 @@ export default class PolicyDetails extends Component {
                                         </div>
                                         {this.state.numberOfNominees == 2 ? <React.Fragment>
                                             <div className="form-group row pt-2">
-                                                <label className="col-lg-3 col-form-label form-control-label">2.Nominee Full Name</label>
+                                                <label className="col-lg-3 col-form-label form-control-label">Nominee Full Name</label>
                                                 <div className="col-lg-9">
                                                     <input className="form-control" type="text" name="nomineeFname2" disabled={!this.state.isEdit} value={this.state.nomineeFname2} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row pt-2">
-                                                <label className="col-lg-3 col-form-label form-control-label">2.Mobile Number</label>
+                                                <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
                                                 <div className="col-lg-9">
                                                     <input className="form-control" type="text" name="mobileNumber2" disabled={!this.state.isEdit} value={this.state.mobileNumber2} />
                                                 </div>

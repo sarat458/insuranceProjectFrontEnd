@@ -11,7 +11,8 @@ export default class CompanyDashboard extends Component {
             policyNumber: '',
             policyType: '',
             claimStatus: '',
-            claimID: ''
+            claimID: '',
+            isRedirect: ''
         }
     }
 
@@ -60,11 +61,14 @@ export default class CompanyDashboard extends Component {
         axios.post(`${baseURL}/changeClaimStatus`, changeDetails)
             .then(res => {
                 console.log(res.data);
+                this.setState({
+                    isRedirect: true
+                })
             })
             .catch(err => console.log(err))
 
 
-        this.fetchClaimDetails();
+        window.location.reload();
     }
 
     // policyDetails = (e) => {
