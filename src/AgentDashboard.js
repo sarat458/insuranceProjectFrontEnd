@@ -183,18 +183,20 @@ export default class AgentDashboard extends Component {
                         </div>
                         <div className="col mr-5">
                             <h4>Enrolled Customers</h4>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Customer Name</th>
-                                        <th scope="col">Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.enrolledCustomersTable()}
-                                </tbody>
-                            </table>
+                            <div style={{ overflow: "scroll", maxHeight: "300px" }}>
+                                <table className="table table-bordered border-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.enrolledCustomersTable()}
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>
@@ -223,19 +225,21 @@ export default class AgentDashboard extends Component {
 
                         <div className="col mr-5">
                             <h3 className="card-title">Overdue Customers</h3>
-                            <table className="table table-bordered border-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Policy Number</th>
-                                        <th scope="col">Customer Name</th>
-                                        <th scope="col">Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.overdueCustomersDetailsTable()}
-                                </tbody>
-                            </table>
+                            <div style={{ overflow: "scroll", maxHeight: "300px" }}>
+                                <table className="table table-bordered border-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Policy Number</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.overdueCustomersDetailsTable()}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

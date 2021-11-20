@@ -45,6 +45,7 @@ export default class RegisterUser extends Component {
 
         axios.post(`${baseURL}/register`, registrationDetails)
             .then(res => {
+                console.log(res.data);
                 if (res.data) {
                     this.setState({ isSuccess: true })
                 }
