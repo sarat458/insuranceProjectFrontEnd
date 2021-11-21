@@ -98,6 +98,7 @@ export default class PolicyDetails extends Component {
             isAdd: true
         })
     }
+
     deleteDetails = (e) => {
         this.setState({
             isAdd: false
@@ -182,6 +183,7 @@ export default class PolicyDetails extends Component {
 
 
     }
+
     deleteNominee = (e) => {
         let { id } = e.target;
         if (id == "nominee2") {
@@ -201,6 +203,7 @@ export default class PolicyDetails extends Component {
             this.setState({ nomineeFname: this.state.nomineeFname2, mobileNumber: this.state.mobileNumber2, mobileNumber2: "", nomineeFname2: "", isAdd: false, numberOfNominees: 1 });
         }
     }
+
     render() {
         if (this.state.isGoBack || this.state.isRedirect) {
             return (
@@ -268,7 +271,7 @@ export default class PolicyDetails extends Component {
                                         <div className="form-group row pt-2">
                                             <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
                                             <div className="col-lg-9">
-                                                <input className="form-control" type="text" name="mobileNumber" disabled={!this.state.isEdit} value={this.state.mobileNumber} />
+                                                <input className="form-control" type="text" name="mobileNumber" disabled={!this.state.isEdit} value={this.state.mobileNumber} onChange={this.handleChange} />
                                             </div>
                                         </div>
 
@@ -279,14 +282,14 @@ export default class PolicyDetails extends Component {
                                             <div className="form-group row pt-2">
                                                 <label className="col-lg-3 col-form-label form-control-label">Nominee Full Name</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" name="nomineeFname2" disabled={!this.state.isEdit} value={this.state.nomineeFname2} />
+                                                    <input className="form-control" type="text" name="nomineeFname2" disabled={!this.state.isEdit} value={this.state.nomineeFname2} onChange={this.handleChange} />
                                                 </div>
                                             </div>
 
                                             <div className="form-group row pt-2">
                                                 <label className="col-lg-3 col-form-label form-control-label">Mobile Number</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" name="mobileNumber2" disabled={!this.state.isEdit} value={this.state.mobileNumber2} />
+                                                    <input className="form-control" type="text" name="mobileNumber2" disabled={!this.state.isEdit} value={this.state.mobileNumber2} onChange={this.handleChange} />
                                                 </div>
                                             </div>
                                             <div>
